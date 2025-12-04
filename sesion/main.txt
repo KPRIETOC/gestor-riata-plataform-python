@@ -1,0 +1,2 @@
+git config --global user.name kprietoc
+git config --global user.email kdpc614@gmail.com
