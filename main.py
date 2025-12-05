@@ -1,6 +1,6 @@
 from typing import List
 from src.start.welcome import welcomeText
-from src.start.menu_list import MenuList
+from src.start.menu_list import menu_list, MenuList
 
 
 class GestorRiataPlataform:
@@ -23,8 +23,7 @@ class GestorRiataPlataform:
         self.running_menu()
 
     def create_menu(self):
-        menu = MenuList()
-        self.menu_list = menu.menu_list
+        self.menu_list = menu_list
 
     def running_menu(self):
         if len(self.menu_list):
@@ -34,7 +33,8 @@ class GestorRiataPlataform:
                 if self.menu__list_item == None:
                     for index in range(len(self.menu_list)):
                         item_menu = self.menu_list[index]
-                        print(f"{item_menu["id"]}. {item_menu["name"]}")
+                        print(f"{item_menu.id}. {item_menu.name}")
+                print("")
 
                 item_menu_selected = int(
                     input("Escriba el número al acción que quiera ingresar: ")
@@ -42,7 +42,7 @@ class GestorRiataPlataform:
 
                 def item_found():
                     self.menu__list_item = self.menu_list[item_menu_selected - 1]
-                    print(f"Has seleccionado {self.menu__list_item["name"]}")
+                    print(f"Has seleccionado {self.menu__list_item.name}")
                     return self.menu__list_item
 
                 if item_menu_selected == 1:
