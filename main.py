@@ -1,25 +1,24 @@
 from typing import List
 from src.start.welcome import welcomeText
 from src.start.menu_list import menu_list, MenuList
+from src.start.actions_storage_list import ActionsStorageList
 
 
-class GestorRiataPlataform:
+class GestorRiataPlataform(ActionsStorageList):
     def __init__(self):
         self.company_name = ""
         self.id = 1
         self.menu_list: List[MenuList] = []
         self.menu__list_item: None | MenuList = None
         self.is_running = False
+        
 
     def on_program(self):
         print(welcomeText)
-
         self.company_name = input("Ingresa el nombre: ")
-
         print(f"Empresa: {self.company_name}")
 
         self.create_menu()
-
         self.running_menu()
 
     def create_menu(self):
@@ -37,13 +36,12 @@ class GestorRiataPlataform:
                 print("")
 
                 item_menu_selected = int(
-                    input("Escriba el número al acción que quiera ingresar: ")
+                    input("Escriba el número al modulo o acción que quiera ingresar: ")
                 )
 
                 def item_found():
                     self.menu__list_item = self.menu_list[item_menu_selected - 1]
-                    print(f"Has seleccionado {self.menu__list_item.name}")
-                    return self.menu__list_item
+                    self.actions_menu(self.menu__list_item)
 
                 if item_menu_selected == 1:
                     item_found()

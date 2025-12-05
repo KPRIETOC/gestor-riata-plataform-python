@@ -1,47 +1,15 @@
-class Usuario:
-    def __init__(self, nombre, rol):
-        self.nombre = nombre
-        self.rol = rol
+class Roles:
+    def __init__(self, id: int, name: str):
+        self.id: int = id
+        self.name: str = name
 
-    def mostrar_rol(self):
-        print(f"Usuario: {self.nombre} - Rol: {self.rol}")
-
-
-class Administrador(Usuario):
-    def __init__(self, nombre):
-        super().__init__(nombre, "Administrador")
-
-    def gestionar_sistema(self):
-        print(f"{self.nombre} tiene acceso completo al sistema.")
+    def __str__(self):
+        return f"{self.id}. {self.name}"
 
 
-class Gerente(Usuario):
-    def __init__(self, nombre):
-        super().__init__(nombre, "Gerente")
-
-    def supervisar_trabajadores(self):
-        print(f"{self.nombre} está supervisando a los trabajadores.")
-
-
-class EncargadoDeCompras(Usuario):
-    def __init__(self, nombre):
-        super().__init__(nombre, "Encargado de Compras")
-
-    def realizar_compra(self):
-        print(f"{self.nombre} está realizando compras.")
-
-
-class Trabajador(Usuario):
-    def __init__(self, nombre):
-        super().__init__(nombre, "Trabajador")
-
-    def realizar_tarea(self):
-        print(f"{self.nombre} está realizando su tarea asignada.")
-
-
-class Cliente(Usuario):
-    def __init__(self, nombre):
-        super().__init__(nombre, "Cliente")
-
-    def realizar_pedido(self):
-        print(f"{self.nombre} está realizando un pedido.")
+Rol_Admin = Roles(1, "Administrador")
+Rol_Gerente = Roles(2, "Gerente")
+Rol_Supervisor = Roles(3, "Supervisor")
+Rol_Encargado_Compras = Roles(4, "Encargado de compras")
+Rol_Trabajador = Roles(5, "Trabajador")
+Rol_Cliente = Roles(6, "Cliente")
