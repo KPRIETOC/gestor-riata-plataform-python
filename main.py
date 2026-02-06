@@ -11,7 +11,6 @@ class GestorRiataPlataform(ActionsStorageList):
         self.menu_list: List[MenuList] = []
         self.menu__list_item: None | MenuList = None
         self.is_running = False
-        
 
     def on_program(self):
         print(welcomeText)
@@ -27,13 +26,13 @@ class GestorRiataPlataform(ActionsStorageList):
     def running_menu(self):
         if len(self.menu_list):
             self.is_running = True
-
+            
             while self.is_running:
                 if self.menu__list_item == None:
                     for index in range(len(self.menu_list)):
                         item_menu = self.menu_list[index]
                         print(f"{item_menu.id}. {item_menu.name}")
-                print("")
+
 
                 item_menu_selected = int(
                     input("Escriba el número al modulo o acción que quiera ingresar: ")

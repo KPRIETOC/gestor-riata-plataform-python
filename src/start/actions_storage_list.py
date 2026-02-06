@@ -17,7 +17,6 @@ class ActionsStorageList:
 
     def actions_menu(self, menu_list_item: MenuList | None):
         print(f"Has seleccionado {menu_list_item.name} \n")
-        
 
         for action in actions_list:
             print(f"{action["id"]}. {action["name"]}")
@@ -34,7 +33,6 @@ class ActionsStorageList:
             print("Eliminar")
         else:
             menu_list_item = None
-
 
     def add_rol(self, rol: Roles):
         self.roles.append(rol)
