@@ -6,6 +6,11 @@ class Roles:
     def __str__(self):
         return f"{self.id}. {self.name}"
 
+    def create_role(self, list_roles_str: int = 0):
+        self.name = input("Ingrese el nombre del rol: ")
+        print("Rol creado con éxito")
+        return Roles(list_roles_str + 1, self.name)
+
 
 Rol_Admin = Roles(1, "Administrador")
 Rol_Gerente = Roles(2, "Gerente")

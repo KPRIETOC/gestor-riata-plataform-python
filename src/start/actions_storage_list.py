@@ -24,13 +24,35 @@ class ActionsStorageList:
         action_id = int(input("Selecciona una acción: "))
 
         if action_id == 1:
-            print("Crear")
+            self.handle_actions(menu_list_item.id, 1)
         elif action_id == 2:
-            print("Mostrar Listado")
+            self.handle_actions(menu_list_item.id, 2)
         elif action_id == 3:
             print("Editar")
         elif action_id == 4:
             print("Eliminar")
+        else:
+            menu_list_item = None
+
+    def handle_actions(self, menu_list_item_id: int, action_id: int):
+        if menu_list_item_id == 1:
+            rol = Roles.create_role()
+            self.add_rol(rol)
+            print("Rol creado con éxito")
+            menu_list_item = MenuList(1, "Roles")
+            menu_list_item.add_sub_menu(MenuList(1, "Crear Rol"))
+            menu_list_item.add_sub_menu(MenuList(2, "Mostrar Listado"))
+            menu_list_item.add_sub_menu(MenuList(3, "Editar Rol"))
+            menu_list_item.add_sub_menu(MenuList(4, "Eliminar Rol"))
+        elif menu_list_item_id == 2:
+            user = User()
+            self.add_users(user)
+            print("Usuario creado con éxito")
+            menu_list_item = MenuList(2, "Usuarios")
+            menu_list_item.add_sub_menu(MenuList(1, "Crear Usuario"))
+            menu_list_item.add_sub_menu(MenuList(2, "Mostrar Listado"))
+            menu_list_item.add_sub_menu(MenuList(3, "Editar Usuario"))
+            menu_list_item.add_sub_menu(MenuList(4, "Eliminar Usuario"))
         else:
             menu_list_item = None
 
