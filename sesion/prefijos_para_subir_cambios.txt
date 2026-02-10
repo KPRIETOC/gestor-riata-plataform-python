@@ -1,5 +1,0 @@
-git commit -m "[comand]"
-
-feat: Se agrego o creo algo
-fix: Se arreglo algo
-remove: Se elimino

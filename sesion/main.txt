@@ -1,4 +1,0 @@
-git config --global user.name kprietoc
-git config --global user.email kdpc614@gmail.com
-git config --global user.name VakanoDanSena
-git config --global user.email vakanodan@gmail.com
