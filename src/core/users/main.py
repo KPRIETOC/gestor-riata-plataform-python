@@ -5,28 +5,29 @@ from src.core.rol.main import *
 class User:
     def __init__(
         self,
-        name: str = "",
-        lastname: str = "",
-        celphone: str = "",
-        email: str = "",
-        password: str = "",
-        document_number: str = "",
+        name: str,
+        lastname: str,
+        document_number: str,
+        celphone: str,
+        email: str,
+        password: str,
+        age: int,
         document_type: str = "C.C",
-        age: int = 18,
         birthdate: str = "",
     ):
-        self.name: str = input("Ingrese su nombre: ")
-        self.lastname: str = input("Ingrese su apellido: ")
-        self.document_type: str = input("Ingrese su tipo de documento: ")
-        self.document_number: str = input("Ingrese su documento: ")
-        self.celphone: str = input("Ingrese su celular: ")
-        self.email: str = input("Ingrese su email: ")
-        self.password: str = input("Ingrese su contraseña: ")
-        self.age: str = input("Ingrese su edad: ")
-        self.birthdate: str = input("Ingrese su fecha de nacimiento: ")
-        self.active: str = False
-        self.is_registred: str = False
-        self.rol: Roles | None = None
+        # Asignamos los valores recibidos como argumentos
+        self.name = name
+        self.lastname = lastname
+        self.document_type = document_type
+        self.document_number = document_number
+        self.celphone = celphone
+        self.email = email
+        self.password = password
+        self.age = age
+        self.birthdate = birthdate
+        self.active = False
+        self.is_registered = False  # Corregido el typo 'registred'
+        self.rol = None
 
     def register_user(self):
         confirm = input(
@@ -100,16 +101,17 @@ class User:
     def __str__(self):
         return self.show_user()
 
-    def create_user(self):
-        self.name = input("Ingrese su nombre: ")
-        self.lastname = input("Ingrese su apellido: ")
-        self.document_number = input("Ingrese su documento: ")
-        self.document_type = input("Ingrese su tipo de documento: ")
-        self.celphone = input("Ingrese su celular: ")
-        self.email = input("Ingrese su email: ")
-        self.password = input("Ingrese su contraseña: ")
-        self.age = input("Ingrese su edad: ")
-        self.birthdate = input("Ingrese su fecha de nacimiento: ")
-        self.register_user()
-        self.assign_rol_user(Roles.ADMIN)
+    def create_user():
+        name = input("Ingrese su nombre: ")
+        lastname = input("Ingrese su apellido: ")
+        document_number = input("Ingrese su documento: ")
+        document_type = input("Ingrese su tipo de documento: ")
+        celphone = input("Ingrese su celular: ")
+        email = input("Ingrese su email: ")
+        password = input("Ingrese su contraseña: ")
+        age = input("Ingrese su edad: ")
+        birthdate = input("Ingrese su fecha de nacimiento: ")
+        
+        
+        
         print("Usuario creado con éxito")

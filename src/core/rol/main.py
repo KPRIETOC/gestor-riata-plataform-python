@@ -6,10 +6,24 @@ class Roles:
     def __str__(self):
         return f"{self.id}. {self.name}"
 
-    def create_role(self, list_roles_str: int = 0):
-        self.name = input("Ingrese el nombre del rol: ")
+    def update_role(self, key: str, value: str | int):
+        if key == "name":
+            self.name = value
+            print("Se ha actualizado el nombre de rol")
+        else:
+            print("La clave no existe")
+
+    def delete_role():
+        confirm = input("¿Desea eliminar el rol? (yes / no) ")
+        if confirm == "yes":
+            print("Rol eliminado con éxito")
+        else:
+            print("Rol no eliminado")
+
+    def create_role(end_rol_creation: int = 0):
+        name = input("Ingrese el nombre del rol: ")
         print("Rol creado con éxito")
-        return Roles(list_roles_str + 1, self.name)
+        return Roles(end_rol_creation + 1, name)
 
 
 Rol_Admin = Roles(1, "Administrador")
