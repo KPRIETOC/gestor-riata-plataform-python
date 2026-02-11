@@ -7,4 +7,6 @@ name_buiness = welcome_grp()
 # Inicializador del sistema
 business = GestoRiataPlatForm(name_buiness)
 
-business.show_menu()
+business.create_menu()
+
+business.on_menu_list()
