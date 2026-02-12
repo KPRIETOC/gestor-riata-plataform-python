@@ -4,6 +4,12 @@ from src.controllers.menu_list import MenuList
 class GestoRiataPlatForm(MenuList):
     menu_list_default: list[MenuList] = []
     menu_list_selected: MenuList | None = None
+    actions_list = [
+        {"id": 1, "name": "Crear"},
+        {"id": 2, "name": "Mostrar"},
+        {"id": 3, "name": "Actualizar"},
+        {"id": 4, "name": "Eliminar"},
+    ]
     roles = []
     users = []
     running_menu = False
@@ -17,48 +23,33 @@ class GestoRiataPlatForm(MenuList):
     def add_menu_list(self, menu: MenuList):
         self.menu_list_default.append(menu)
 
-    def next_id(self, key: str):
-        if key == "menu_list_default":
-            return len(self.menu_list_default) + 1
-        elif key == "roles":
-            return len(self.roles) + 1
-        else:
-            return len(self.users) + 1
-
     def add_menu_list_key(self, key: str):
         newMenu = MenuList(len(self.menu_list_default) + 1, key)
         self.add_menu_list(newMenu)
 
     def create_menu(self):
-        # TODO: REPLACE FOR "add_menu_list_key" AND add array keys
-
-        key = "menu_list_default"
-        # ROLES
-        menu_roles = MenuList(self.next_id(key), "Roles")
-        self.add_menu_list(menu_roles)
-
-        # USERS
-        menu_users = MenuList(self.next_id(key), "Usuarios")
-        self.add_menu_list(menu_users)
-
-        # SUPPLIER STORES | MATERIALS
-        menu_stores = MenuList(self.next_id(key), "Tiendas provedoras")
-        self.add_menu_list(menu_stores)
-        menu_stores.add_sub_list_menu("Materiales")
-
-        # STOCK INVENTORY
-        menu_stock_inventory = MenuList(self.next_id(key), "Inventario")
-        self.add_menu_list(menu_stock_inventory)
-        menu_stock_inventory.add_sub_list_menu("Categorías")
-
-        # INVOICES | INVOICES MATERIALS | INVOICES INVENTORY
-        menu_stock_invoices = MenuList(self.next_id(key), "Facturas")
-        self.add_menu_list(menu_stock_invoices)
-        menu_stock_invoices.add_sub_list_menu("Facturas de materiales")
-        menu_stock_invoices.add_sub_list_menu("Facturas de inventario")
-        # CLOSE PROGRAM
-        menu_close_program = MenuList(self.next_id(key), "Cerrar Programa")
-        self.add_menu_list(menu_close_program)
+        new_menu_list = [
+            {"name": "Roles", "sub_list": []},
+            {"name": "Usuarios", "sub_list": []},
+            {"name": "Tiendas provedoras", "sub_list": [{"name": "Materiales"}]},
+            {"name": "Inventario", "sub_list": [{"name": "Categorías"}]},
+            {
+                "name": "Facturas",
+                "sub_list": [
+                    {"name": "Facturas de materiales"},
+                    {"name": "Facturas de inventario"},
+                ],
+            },
+            {"name": "Cerrar programa", "sub_list": []},
+        ]
+        # Recorremos el menu list que creamos
+        for item in new_menu_list:
+            new_menu = MenuList(len(self.menu_list_default) + 1, item["name"])
+            self.add_menu_list(new_menu)
+            # Recorremos el sub menu list que creamos
+            if len(item["sub_list"]):
+                for sub_item in item["sub_list"]:
+                    new_menu.add_sub_list_menu(sub_item["name"])
 
     def found_menu_list(self, opcion: str):
         menu = None
@@ -81,6 +72,27 @@ class GestoRiataPlatForm(MenuList):
                     else:
                         print("   ", menu_sub_item.__str__(), "\n")
 
+    def valid_option_menu(self, retry: int = 10):
+        opcion = input("\n Seleccione un módulo escribiendo su número: ")
+        # Guardamos en la variable de arriaba para acceder en otras funciones
+        self.menu_list_selected = self.found_menu_list(opcion)
+
+        if retry <= 0:
+            return None
+
+        if self.menu_list_selected == None:
+            retry = retry - 1
+            print(f"Intentos restantes {retry}")
+            print("\nEl módulo no existe, escribe un nuevo núevo número otra:")
+            show_menu_again = (
+                input("\nMostrar nuevamente el menu, si o no: ").lower() == "si"
+            )
+            if show_menu_again:
+                self.show_menu_list_program()
+            self.valid_option_menu(retry)
+        else:
+            print(f"\nHas seleccionado el módulo de {self.menu_list_selected.name}")
+
     # Ejecutar antes de create_menu
     def on_menu_list(self):
         self.running_menu = True
@@ -95,24 +107,8 @@ class GestoRiataPlatForm(MenuList):
             self.show_menu_list_program()
 
             # TODO: add retry again program
-            def valid_option():
-                opcion = input("\n Seleccione un módulo escribiendo su número: ")
-                self.menu_list_selected = self.found_menu_list(opcion)
 
-                if self.menu_list_selected == None:
-                    print("\nEl módulo no existe, escribe un nuevo núevo número otra:")
-                    show_menu_again = (
-                        input("\nMostrar nuevamente el menu, si o no: ").lower() == "si"
-                    )
-                    if show_menu_again:
-                        self.show_menu_list_program()
-                    valid_option()
-                else:
-                    print(
-                        f"\nHas seleccionado el módulo de {self.menu_list_selected.name}"
-                    )
-
-            valid_option()
+            self.valid_option_menu()
 
             action_selected = input(
                 f"\nSeleccione ahora la accion que quiere realizar en el módulo de {self.menu_list_selected.name}: "
