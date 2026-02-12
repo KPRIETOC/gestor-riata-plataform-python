@@ -61,11 +61,14 @@ class GestoRiataPlatForm(MenuList):
         self.add_menu_list(menu_close_program)
 
     def found_menu_list(self, opcion: int):
+        menu = None
         for menu_item in self.menu_list_default:
             if opcion == menu_item.id:
-                return menu_item
+                menu = menu_item
+                break
             else:
-                return None
+                menu = None
+        return menu
 
     # Ejecutar antes de create_menu
     def on_menu_list(self):
@@ -98,6 +101,7 @@ class GestoRiataPlatForm(MenuList):
             def valid_option():
                 opcion = input("\n Seleccione un módulo escribiendo su número: ")
                 self.menu_list_selected = self.found_menu_list(int(opcion))
+                print(self.menu_list_selected)
                 if self.menu_list_selected == None:
                     print("\nEl módulo no existe, escribe un nuevo núevo número otra:")
                     show_menu_again = (
