@@ -77,6 +77,7 @@ class GestoRiataPlatForm(MenuList):
 
         while self.running_menu:
             print("\n***** Menu de la empresa *****\n")
+
             def show_menu_list_program():
                 for menu_item in self.menu_list_default:
                     menu_item.show_menu_list()
@@ -92,13 +93,16 @@ class GestoRiataPlatForm(MenuList):
 
             # Llamamos al menú
             show_menu_list_program()
+
             # TODO: add retry again program
             def valid_option():
                 opcion = input("\n Seleccione un módulo escribiendo su número: ")
                 self.menu_list_selected = self.found_menu_list(int(opcion))
                 if self.menu_list_selected == None:
                     print("\nEl módulo no existe, escribe un nuevo núevo número otra:")
-                    show_menu_again = input("\nMostrar nuevamente el menu, si o no: ").lower() == "si"
+                    show_menu_again = (
+                        input("\nMostrar nuevamente el menu, si o no: ").lower() == "si"
+                    )
                     if show_menu_again:
                         show_menu_list_program()
                     valid_option()
