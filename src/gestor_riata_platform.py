@@ -60,15 +60,26 @@ class GestoRiataPlatForm(MenuList):
         menu_close_program = MenuList(self.next_id(key), "Cerrar Programa")
         self.add_menu_list(menu_close_program)
 
-    def found_menu_list(self, opcion: int):
+    def found_menu_list(self, opcion: str):
         menu = None
         for menu_item in self.menu_list_default:
-            if opcion == menu_item.id:
+            if opcion == str(menu_item.id):
                 menu = menu_item
                 break
-            else:
-                menu = None
         return menu
+
+    def show_menu_list_program(self):
+        for menu_item in self.menu_list_default:
+            menu_item.show_menu_list()
+            # Buscamos si tiene una lista interna o hija
+            size_sub_menu = len(menu_item.sub_list_menu)
+            if size_sub_menu >= 1:
+                for menu_sub_item in menu_item.sub_list_menu:
+                    # Evaluar si es la ultima de la lista para que haga el salto de linea
+                    if not (menu_sub_item.id == size_sub_menu):
+                        print("   ", menu_sub_item.__str__())
+                    else:
+                        print("   ", menu_sub_item.__str__(), "\n")
 
     # Ejecutar antes de create_menu
     def on_menu_list(self):
@@ -77,38 +88,24 @@ class GestoRiataPlatForm(MenuList):
         if len(self.menu_list_default) == 0:
             print("\nNo hay menu de momento")
             return
-
         while self.running_menu:
             print("\n***** Menu de la empresa *****\n")
 
-            def show_menu_list_program():
-                for menu_item in self.menu_list_default:
-                    menu_item.show_menu_list()
-                    # Buscamos si tiene una lista interna o hija
-                    size_sub_menu = len(menu_item.sub_list_menu)
-                    if size_sub_menu >= 1:
-                        for menu_sub_item in menu_item.sub_list_menu:
-                            # Evaluar si es la ultima de la lista para que haga el salto de linea
-                            if not (menu_sub_item.id == size_sub_menu):
-                                print("   ", menu_sub_item.__str__())
-                            else:
-                                print("   ", menu_sub_item.__str__(), "\n")
-
             # Llamamos al menú
-            show_menu_list_program()
+            self.show_menu_list_program()
 
             # TODO: add retry again program
             def valid_option():
                 opcion = input("\n Seleccione un módulo escribiendo su número: ")
-                self.menu_list_selected = self.found_menu_list(int(opcion))
-                print(self.menu_list_selected)
+                self.menu_list_selected = self.found_menu_list(opcion)
+
                 if self.menu_list_selected == None:
                     print("\nEl módulo no existe, escribe un nuevo núevo número otra:")
                     show_menu_again = (
                         input("\nMostrar nuevamente el menu, si o no: ").lower() == "si"
                     )
                     if show_menu_again:
-                        show_menu_list_program()
+                        self.show_menu_list_program()
                     valid_option()
                 else:
                     print(
