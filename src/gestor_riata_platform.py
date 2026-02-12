@@ -72,12 +72,12 @@ class GestoRiataPlatForm(MenuList):
                     else:
                         print("   ", menu_sub_item.__str__(), "\n")
 
-    def valid_option_menu(self, retry: int = 10):
+    def select_option_menu(self, retry: int = 10):
         opcion = input("\n Seleccione un módulo escribiendo su número: ")
         # Guardamos en la variable de arriaba para acceder en otras funciones
         self.menu_list_selected = self.found_menu_list(opcion)
 
-        if retry <= 0:
+        if retry <= 1:
             return None
         else:
             if self.menu_list_selected == None:
@@ -89,7 +89,7 @@ class GestoRiataPlatForm(MenuList):
                 )
                 if show_menu_again:
                     self.show_menu_list_program()
-                self.valid_option_menu(retry)
+                self.select_option_menu(retry)
             else:
                 print(f"\nHas seleccionado el módulo de {self.menu_list_selected.name}")
 
@@ -108,10 +108,17 @@ class GestoRiataPlatForm(MenuList):
 
             # TODO: add retry again program
 
-            self.valid_option_menu()
+            self.select_option_menu()
+
+            if not self.menu_list_selected:
+                print(
+                    "\nOh no, Ocurrió un error al seleccionar un modulo del programa."
+                )
+                print("\n  ***** MUCHOS INTENTOS FALLIDOS ***** \n")
+                break
 
             action_selected = input(
-                f"\nSeleccione ahora la accion que quiere realizar en el módulo de {self.menu_list_selected.name}: "
+                f"\nSeleccione ahora la accion que quiere realizar en el módulqo de {self.menu_list_selected.name}: "
             )
             if action_selected == "1":
                 print(f"Crear {1}")
