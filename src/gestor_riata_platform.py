@@ -93,6 +93,11 @@ class GestoRiataPlatForm(MenuList):
             else:
                 print(f"\nHas seleccionado el módulo de {self.menu_list_selected.name}")
 
+    def show_actions_list(self):
+        print(f"***** Lista de Acciones *****")
+        for action in self.actions_list:
+            print(f"{action["id"]}. {action["name"]}")
+
     # Ejecutar antes de create_menu
     def on_menu_list(self):
         self.running_menu = True
@@ -117,9 +122,12 @@ class GestoRiataPlatForm(MenuList):
                 print("\n  ***** MUCHOS INTENTOS FALLIDOS ***** \n")
                 break
 
+            # Mostramos las acciones     
+            self.show_actions_list()
             action_selected = input(
                 f"\nSeleccione ahora la accion que quiere realizar en el módulqo de {self.menu_list_selected.name}: "
             )
+
             if action_selected == "1":
                 print(f"Crear {1}")
             elif action_selected == "2":
