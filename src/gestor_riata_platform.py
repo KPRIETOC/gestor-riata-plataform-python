@@ -79,19 +79,19 @@ class GestoRiataPlatForm(MenuList):
 
         if retry <= 0:
             return None
-
-        if self.menu_list_selected == None:
-            retry = retry - 1
-            print(f"Intentos restantes {retry}")
-            print("\nEl módulo no existe, escribe un nuevo núevo número otra:")
-            show_menu_again = (
-                input("\nMostrar nuevamente el menu, si o no: ").lower() == "si"
-            )
-            if show_menu_again:
-                self.show_menu_list_program()
-            self.valid_option_menu(retry)
         else:
-            print(f"\nHas seleccionado el módulo de {self.menu_list_selected.name}")
+            if self.menu_list_selected == None:
+                retry = retry - 1
+                print(f"Intentos restantes {retry}")
+                print("\nEl módulo no existe, escribe un nuevo núevo número otra:")
+                show_menu_again = (
+                    input("\nMostrar nuevamente el menu, si o no: ").lower() == "si"
+                )
+                if show_menu_again:
+                    self.show_menu_list_program()
+                self.valid_option_menu(retry)
+            else:
+                print(f"\nHas seleccionado el módulo de {self.menu_list_selected.name}")
 
     # Ejecutar antes de create_menu
     def on_menu_list(self):
